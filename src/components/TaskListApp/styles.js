@@ -23,19 +23,25 @@ export default {
   taskListHeader: {
     display: 'flex',
     flexFlow: 'row nowrap',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    marginTop: 10
   },
   taskListHeaderTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 900,
     color: colors.darkBlue
   },
-  taskListHeaderButtons: {
-
+  taskListHeaderButton: {
+    marginLeft: 10,
+    color: colors.white,
+    fontSize: 12,
+    borderRadius: 3
   },
   taskList: {
     margin: 0,
-    padding: 0
+    padding: 0,
+    listStyleType: 'none'
   },
   taskListItem: {
     display: 'flex',
@@ -47,11 +53,11 @@ export default {
     padding: '10px 15px',
     color: colors.gray,
     backgroundColor: colors.white,
-    borderRadius: 5,
-    fontSize: 9,
+    borderRadius: 3,
+    boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
+    fontSize: 11,
     fontWeight: 900,
     letterSpacing: '0.2em',
-    listStyleType: 'none',
     textTransform: 'uppercase'
   },
 }
