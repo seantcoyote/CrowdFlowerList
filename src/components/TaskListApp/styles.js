@@ -13,8 +13,7 @@ export default {
     backgroundColor: colors.pageBackground
   },
   pageHeader: {
-    height: '42px',
-    minHeight: '42px',
+    height: '50px',
     backgroundColor: colors.darkBlue
   },
   taskListPane: {
@@ -60,4 +59,7 @@ export default {
     letterSpacing: '0.2em',
     textTransform: 'uppercase'
   },
+  trashIcon: {
+    fontSize: 16
+  }
 }
