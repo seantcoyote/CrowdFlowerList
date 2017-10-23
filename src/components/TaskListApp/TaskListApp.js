@@ -7,12 +7,17 @@ import * as taskActions from '../../actions/taskActions'
 import uuidV4 from 'uuid/v4'
 import TaskListHeader from '../TaskListHeader'
 import TaskList from '../TaskList'
+import Message from '../Message'
+import {loadingErrorMessage} from '../../constants'
 import styles from './styles'
 
 class TaskListApp extends Component {
   componentWillMount () {
     this.props.taskActions.loadTasks().then(() => {
+      this.props.uiActions.setDataLoadingError(false)
       this.props.uiActions.setIsDataReady(true)
+    }).catch((err) => {
+      this.props.uiActions.setDataLoadingError(true)
     })
   }
 
@@ -37,6 +42,11 @@ class TaskListApp extends Component {
             addTask={this.addTask}
             saveList={this.saveList}
           />
+
+          {this.props.loadingError &&
+            <Message style={{color: 'red'}}>{loadingErrorMessage}</Message>
+          }
+
           <TaskList
             tasks={this.props.tasks}
           />
@@ -48,6 +58,7 @@ class TaskListApp extends Component {
 
 TaskListApp.propTypes = {
   isDataReady: bool.isRequired,
+  loadingError: bool,
   tasks: object,
   taskActions: object.isRequired,
   uiActions: object.isRequired
@@ -55,6 +66,7 @@ TaskListApp.propTypes = {
 
 const mapStateToProps = (state) => ({
   isDataReady: state.ui.isDataReady,
+  loadingError: state.ui.loadingError,
   tasks: state.tasks
 })
 

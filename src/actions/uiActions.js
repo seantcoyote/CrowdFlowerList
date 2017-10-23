@@ -5,9 +5,9 @@ export const setIsDataReady = (isReady) => ({
   payload: isReady
 })
 
-export const setDataLoadingError = (errorMessage) => ({
+export const setDataLoadingError = (isError) => ({
   type: types.SET_DATA_LOADING_ERROR,
-  payload: errorMessage
+  payload: isError
 })
 
 export const updateNumberOfAjaxCalls = (numberOfChange) => ({

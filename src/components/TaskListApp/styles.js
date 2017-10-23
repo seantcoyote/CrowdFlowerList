@@ -9,7 +9,7 @@ export default {
     backgroundColor: colors.pageBackground
   },
   pageHeader: {
-    height: '50px',
+    height: 50,
     backgroundColor: colors.darkBlue
   },
   taskListPane: {

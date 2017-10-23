@@ -1,11 +1,10 @@
 import colors from '../../constants/colors'
 
 export default {
-  taskList: {
-    margin: 0,
-    padding: 0,
-    width: 610,
-    listStyleType: 'none',
+  base: {
+    maxWidth: 610,
+    marginTop: 75,
+    fontSize: 20,
     color: colors.gray
   }
 }

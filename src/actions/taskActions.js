@@ -1,6 +1,6 @@
 import * as types from './actionTypes.js'
-import {updateNumberOfAjaxCalls} from './uiActions'
-import {getTasks} from '../services/tasks'
+import {updateNumberOfAjaxCalls, setDataLoadingError} from './uiActions'
+import {fetchTasks} from '../services/tasks'
 
 const loadTasksSuccess = (tasks) => ({
   type: types.LOAD_TASKS_SUCCESS,
@@ -11,9 +11,10 @@ export const loadTasks = () => (dispatch) => {
   return new Promise((resolve, reject) => {
     dispatch(updateNumberOfAjaxCalls(1))
 
-    getTasks()
+    fetchTasks()
     .then((data) => {
-      dispatch(loadTasksSuccess(data.tasks))
+      console.log('data:', data)
+      dispatch(loadTasksSuccess((data && data.tasks) || null))
       dispatch(updateNumberOfAjaxCalls(-1))
       resolve()
     })

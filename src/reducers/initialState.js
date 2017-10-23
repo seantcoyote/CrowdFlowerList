@@ -3,6 +3,6 @@ export default {
   ui: {
     numberOfAjaxRequests: 0,
     isDataReady: false,
-    loadingError: ''
+    loadingError: false
   }
 }

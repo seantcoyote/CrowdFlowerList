@@ -1,4 +1,25 @@
-// import fetch from 'isomorphic-fetch' // TODO: Use fetch instead of XHR
+import {checkFetchStatus} from '../services/fetch'
+import {url} from '../constants'
+
+const fetchTasks = () => {
+  const mode = (process.env.NODE_ENV === 'production') ? 'same-origin' : 'cors'
+  const httpHeaders = new Headers({
+    "Content-Type": "application/json"
+  })
+  const options = {
+    method: 'get',
+    headers: httpHeaders
+  }
+
+  const request = new Request(url, options)
+
+  return new Promise((resolve, reject) => {
+    fetch(request)
+    .then(checkFetchStatus)
+    .then((response) => { resolve(response) })
+    .catch((error) => { reject(error) })
+  })
+}
 
 const getTasks = () => {
   return new Promise((resolve, reject) => {
@@ -36,5 +57,6 @@ const getTasks = () => {
 }
 
 export {
+  fetchTasks,
   getTasks
 }

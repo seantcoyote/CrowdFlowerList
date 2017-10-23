@@ -1,4 +1,5 @@
 export const checkFetchStatus = (response) => {
+  console.log('response:', response)
   if (response.ok) {
     return Promise.resolve(response)
   } else {

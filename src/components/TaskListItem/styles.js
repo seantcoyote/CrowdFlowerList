@@ -1,16 +1,12 @@
 import colors from '../../constants/colors'
 
-// Mockup dimensions from PDF -
-// Task list item: 1234px x 275
-// Add Task button: 130 x 60, Save button: 90 x 60
-
 export default {
   taskListItem: {
     display: 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'space-between',
-    width: '580px',
-    height: '105px',
+    width: 580,
+    height: 105,
     margin: '8px 0',
     padding: '10px 15px',
     color: colors.gray,
