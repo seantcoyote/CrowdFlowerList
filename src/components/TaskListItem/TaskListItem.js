@@ -1,6 +1,4 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
-import colors from '../../constants/colors'
 import styles from './styles'
 
 const TaskListItem = ({task, deleteTaskHandler}) => {

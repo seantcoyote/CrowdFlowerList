@@ -1,14 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {createStore} from 'redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import rootReducer from './reducers'
+import configureStore from './configureStore'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import './index.css';
-import TaskListApp from './components/TaskListApp';
-import registerServiceWorker from './registerServiceWorker';
+// import './index.css'
+import TaskListApp from './components/TaskListApp'
+import registerServiceWorker from './registerServiceWorker'
 
-const store = createStore(rootReducer)
+const store = configureStore()
 
 const App = () => (
   <Provider store={store}>
@@ -18,5 +17,5 @@ const App = () => (
   </Provider>
 )
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+ReactDOM.render(<App />, document.getElementById('root'))
+registerServiceWorker()
