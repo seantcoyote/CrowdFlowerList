@@ -5,8 +5,8 @@ export const setIsDataReady = (isReady) => ({
   payload: isReady
 })
 
-export const setDataLoadingError = (isError) => ({
-  type: types.SET_DATA_LOADING_ERROR,
+export const setErrorMessage = (isError) => ({
+  type: types.SET_ERROR_MESSAGE,
   payload: isError
 })
 

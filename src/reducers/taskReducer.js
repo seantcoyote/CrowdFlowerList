@@ -4,19 +4,26 @@ import initialState from './initialState'
 export default function taskReducer (state = initialState.tasks, action) {
   switch (action.type) {
     case types.LOAD_TASKS_SUCCESS:
-      return action.payload.tasks
+      return action.payload
 
       case types.SAVE_TASKS_SUCCESS:
-        return action.payload.tasks
+        return action.payload
 
       case types.ADD_TASK:
-        return action.payload.tasks
+        return {
+          ...state,
+          [action.payload.id]: action.payload
+        }
 
       case types.UPDATE_TASK:
-        return action.payload.tasks
+      return {
+        ...state,
+        [action.payload.id]: action.payload
+      }
 
       case types.DELETE_TASK:
-        return action.payload.tasks
+      const newState = state.filter((task) => task.id !== action.payload.id)
+      return newState
 
     default:
       return state

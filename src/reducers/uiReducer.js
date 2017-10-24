@@ -9,10 +9,10 @@ export default function uiReducer (state = initialState.ui, action) {
         isDataReady: action.payload
       }
 
-    case types.SET_DATA_LOADING_ERROR:
+    case types.SET_ERROR_MESSAGE:
       return {
         ...state,
-        loadingError: action.payload
+        errorMessage: action.payload
       }
 
     case types.UPDATE_NUMBER_OF_AJAX_CALLS:
