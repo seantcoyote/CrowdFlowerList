@@ -81,9 +81,11 @@ class TaskListApp extends Component {
     this.props.taskActions.saveTasks({
       tasks: this.props.tasks
     }).then(() => {
+      // TODO: display alert
       console.log('saveTasks:', saveSuccessMessage)
       this.props.uiActions.setErrorMessage('')
     }).catch((err) => {
+      // TODO: display alert
       console.log('saveTasks:', saveErrorMessage)
       // this.props.uiActions.setErrorMessage(saveErrorMessage)
     })

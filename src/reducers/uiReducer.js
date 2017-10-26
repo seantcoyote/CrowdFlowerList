@@ -9,16 +9,23 @@ export default function uiReducer (state = initialState.ui, action) {
         isDataReady: action.payload
       }
 
+    case types.SET_IS_SAVED:
+      return {
+        ...state,
+        isDataSaved: action.payload
+      }
+
     case types.SET_ERROR_MESSAGE:
       return {
         ...state,
         errorMessage: action.payload
       }
 
-    case types.UPDATE_NUMBER_OF_AJAX_CALLS:
+    case types.SET_NUMBER_OF_AJAX_CALLS:
+      const newNumber = state.numberOfAjaxRequests + action.payload
       return {
         ...state,
-        numberOfAjaxRequests: action.payload
+        numberOfAjaxRequests: newNumber
       }
 
     default:

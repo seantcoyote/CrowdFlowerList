@@ -5,12 +5,17 @@ export const setIsDataReady = (isReady) => ({
   payload: isReady
 })
 
+export const setIsSaved = (isSaved) => ({
+  type: types.SET_IS_SAVED,
+  payload: isSaved
+})
+
 export const setErrorMessage = (isError) => ({
   type: types.SET_ERROR_MESSAGE,
   payload: isError
 })
 
-export const updateNumberOfAjaxCalls = (numberOfChange) => ({
-  type: types.UPDATE_NUMBER_OF_AJAX_CALLS,
+export const setNumberOfAjaxCalls = (numberOfChange) => ({
+  type: types.SET_NUMBER_OF_AJAX_CALLS,
   payload: numberOfChange
 })
