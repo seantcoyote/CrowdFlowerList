@@ -1,5 +1,5 @@
 import * as types from './actionTypes.js'
-import {updateNumberOfAjaxCalls, setErrorMessage} from './uiActions'
+import {updateNumberOfAjaxCalls} from './uiActions'
 import {fetchTasks, sendTasks} from '../services/tasks'
 
 const loadTasksSuccess = (tasks) => ({
@@ -17,14 +17,14 @@ export const addTask = (task) => ({
   payload: task
 })
 
-export const updateTask = (task) => ({
+export const updateTask = (id, value) => ({
   type: types.UPDATE_TASK,
-  payload: task
+  payload: {id, value}
 })
 
-export const deleteTask = (task) => ({
+export const deleteTask = (id) => ({
   type: types.DELETE_TASK,
-  payload: task
+  payload: id
 })
 
 export const loadTasks = () => (dispatch) => {
@@ -33,7 +33,6 @@ export const loadTasks = () => (dispatch) => {
 
     fetchTasks()
     .then((data) => {
-      console.log('data:', data)
       dispatch(loadTasksSuccess((data && data.tasks) || null))
       dispatch(updateNumberOfAjaxCalls(-1))
       resolve()

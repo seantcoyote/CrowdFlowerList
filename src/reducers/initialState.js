@@ -1,5 +1,6 @@
 export default {
-  tasks: {},
+  taskIds: [],
+  tasksById: {},
   ui: {
     numberOfAjaxRequests: 0,
     isDataReady: false,

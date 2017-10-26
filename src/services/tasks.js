@@ -12,7 +12,7 @@ const fetchTasks = () => {
   return new Promise((resolve, reject) => {
     fetch(url)
     .then(checkFetchStatus)
-    .then((response) => { resolve(response) })
+    .then((response) => { resolve(response.json()) })
     .catch((error) => { reject(error) })
   })
 }

@@ -1,30 +1,30 @@
 import React from 'react'
+import {object, array, func} from 'prop-types'
 import TaskListItem from '../TaskListItem'
-import Message from '../Message'
-import styles from './styles'
+import defaultStyles from './styles'
 
-const TaskList = ({tasks}) => {
-  const deleteTask = (e) => {
-    console.log('task deleted')
-  }
+const TaskList = ({tasks, taskIds, updateTask, deleteTask, cleanTasks, style}) => (
+  <ul style={{...defaultStyles.taskList, ...style}}>
+    {/* {taskIds} */}
+    {taskIds && taskIds.map((taskId) => (
+      <TaskListItem
+        key={taskId}
+        task={tasks[taskId]}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+        cleanTasks={cleanTasks}
+      />
+    ))}
+  </ul>
+)
 
-  console.log('tasks:', tasks);
-
-  return (
-    <ul style={styles.taskList}>
-      {!tasks &&
-        <Message>Add a task to get started!</Message>
-      }
-
-      {tasks && Object.keys(tasks).map((taskId) => (
-        <TaskListItem
-          key={taskId}
-          task={tasks[taskId]}
-          deleteTaskHandler={deleteTask}
-        />
-      ))}
-    </ul>
-  )
+TaskList.propTypes = {
+  tasks: object.isRequired,
+  taskIds: array.isRequired,
+  updateTask: func.isRequired,
+  deleteTask: func.isRequired,
+  cleanTasks: func.isRequired,
+  style: object
 }
 
 export default TaskList
