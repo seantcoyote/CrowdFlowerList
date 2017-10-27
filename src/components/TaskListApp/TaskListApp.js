@@ -18,7 +18,7 @@ class TaskListApp extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      isAlertOpen: true
+      isAlertOpen: false
     }
   }
 
