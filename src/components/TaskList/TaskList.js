@@ -1,5 +1,6 @@
 import React from 'react'
 import {object, array, func} from 'prop-types'
+import Radium from 'radium'
 import TaskListItem from '../TaskListItem'
 import defaultStyles from './styles'
 
@@ -27,4 +28,4 @@ TaskList.propTypes = {
   style: object
 }
 
-export default TaskList
+export default Radium(TaskList)

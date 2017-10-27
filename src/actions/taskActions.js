@@ -43,12 +43,12 @@ export const saveTasks = (tasks) => (dispatch) => {
   return new Promise((resolve, reject) => {
     sendTasks(tasks)
     .then((response) => {
-      console.log('saveTasks success:', response)
+      // console.log('saveTasks success:', response)
       dispatch(setDataSaved(true))
       resolve()
     })
     .catch((error) => {
-      console.log('saveTasks error:', error)
+      // console.log('saveTasks error:', error)
       dispatch(setDataSaved(false))
       reject(error)
     })

@@ -13,15 +13,13 @@ export default {
     display: 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'space-between',
-    width: 580,
     height: 105,
     margin: '8px 0',
     padding: '0 15px 10px',
     color: colors.gray,
     backgroundColor: colors.white,
     borderRadius: 3,
-    boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px',
-
+    boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px'
   },
   textField: {
     marginRight: 30

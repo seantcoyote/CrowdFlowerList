@@ -1,18 +1,27 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {object, array, bool} from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import Radium from 'radium'
 import * as uiActions from '../../actions/uiActions'
 import * as taskActions from '../../actions/taskActions'
 import uuidV4 from 'uuid/v4'
 import TaskListHeader from '../TaskListHeader'
 import TaskList from '../TaskList'
+import StatusAlert from '../StatusAlert'
 import Spinner from '../Spinner'
 import Message from '../Message'
-import {loadErrorMessage, saveErrorMessage, saveSuccessMessage} from '../../constants'
+import {loadErrorMessage} from '../../constants'
 import defaultStyles from './styles'
 
 class TaskListApp extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      isAlertOpen: true
+    }
+  }
+
   componentWillMount () {
     this.props.taskActions.loadTasks().then(() => {
       this.props.uiActions.setLoadError(false)
@@ -78,19 +87,24 @@ class TaskListApp extends Component {
 }
 
   saveTasks = () => {
-    console.log('saveTasks called:', this.props.tasks)
     this.cleanTasks()
     this.props.taskActions.saveTasks({
       tasks: this.props.tasks
     }).then(() => {
-      // TODO: display alert
-      console.log('saveTasks:', saveSuccessMessage)
+      this.openAlert(this.closeAlert)
       this.props.uiActions.setDataSaved(true)
     }).catch((err) => {
-      // TODO: display alert
-      console.log('saveTasks:', saveErrorMessage)
+      this.openAlert()
       this.props.uiActions.setDataSaved(false)
     })
+  }
+
+  openAlert = () => {
+    this.setState({isAlertOpen: true})
+  }
+
+  closeAlert = () => {
+    this.setState({isAlertOpen: false})
   }
 
   render() {
@@ -125,6 +139,12 @@ class TaskListApp extends Component {
           }
         </div>
 
+        <StatusAlert
+          dataSaved={this.props.dataSaved}
+          isAlertOpen={this.state.isAlertOpen}
+          openAlert={this.openAlert}
+          closeAlert={this.closeAlert}
+        />
       </div>
     )
   }
@@ -154,4 +174,4 @@ const mapDispatchToProps = (dispatch) => ({
   uiActions: bindActionCreators(uiActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskListApp)
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(TaskListApp))

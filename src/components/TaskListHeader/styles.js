@@ -6,8 +6,11 @@ export default {
     flexFlow: 'row nowrap',
     justifyContent: 'space-between',
     alignItems: 'baseline',
-    minWidth: 610,
-    marginTop: 10
+    width: 590,
+    marginTop: 10,
+    '@media (max-width: 700px)': {
+      width: '100%'
+    }
   },
   taskListHeaderTitle: {
     fontSize: 24,

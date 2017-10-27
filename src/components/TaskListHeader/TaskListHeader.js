@@ -1,5 +1,6 @@
 import React from 'react'
 import {func, object, bool} from 'prop-types'
+import Radium from 'radium'
 import FlatButton from 'material-ui/FlatButton'
 import colors from '../../constants/colors'
 import defaultStyles from './styles'
@@ -36,4 +37,4 @@ TaskListHeader.propTypes = {
   style: object
 }
 
-export default TaskListHeader
+export default Radium(TaskListHeader)

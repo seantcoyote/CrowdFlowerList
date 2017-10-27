@@ -1,6 +1,7 @@
 export default {
   pageBackground: '#f5f7f9',
   white: '#fff', // Task item background
+  red: '#f00',
   darkBlue: '#2e3e51', // Page header background
   green: '#61c796', // Active Save button, alert border & text
   greenHover: '#4d9f78',

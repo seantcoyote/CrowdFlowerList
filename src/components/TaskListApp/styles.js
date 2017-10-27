@@ -15,6 +15,10 @@ export default {
   },
   taskListPane: {
     margin: '0 auto 20px',
-    minWidth: 610
+    padding: '0 10px',
+    width: 590,
+    '@media (max-width: 700px)': {
+      width: '70%'
+    }
   }
 }

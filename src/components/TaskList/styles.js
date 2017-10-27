@@ -4,8 +4,11 @@ export default {
   taskList: {
     margin: 0,
     padding: 0,
-    minWidth: 610,
+    width: 590,
     listStyleType: 'none',
-    color: colors.gray
+    color: colors.gray,
+    '@media (max-width: 700px)': {
+      width: '100%'
+    }
   }
 }
