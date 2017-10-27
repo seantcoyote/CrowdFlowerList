@@ -2,8 +2,9 @@ export default {
   taskIds: [],
   tasksById: {},
   ui: {
-    numberOfAjaxRequests: 0,
-    isDataReady: false,
-    errorMessage: ''
+    dataReady: false,
+    dataSaved: true,
+    loadError: false,
+    numberOfAjaxCalls: 0
   }
 }

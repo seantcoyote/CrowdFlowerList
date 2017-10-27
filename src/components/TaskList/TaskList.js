@@ -5,15 +5,16 @@ import defaultStyles from './styles'
 
 const TaskList = ({tasks, taskIds, updateTask, deleteTask, cleanTasks, style}) => (
   <ul style={{...defaultStyles.taskList, ...style}}>
-    {taskIds && taskIds.map((taskId) => (
-      <TaskListItem
-        key={taskId}
-        task={tasks[taskId]}
-        updateTask={updateTask}
-        deleteTask={deleteTask}
-        cleanTasks={cleanTasks}
-      />
-    ))}
+    {taskIds.map((taskId) => (
+        <TaskListItem
+          key={taskId}
+          task={tasks[taskId]}
+          updateTask={updateTask}
+          deleteTask={deleteTask}
+          cleanTasks={cleanTasks}
+        />
+      ))
+    }
   </ul>
 )
 

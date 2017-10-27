@@ -1,5 +1,5 @@
 import * as types from './actionTypes.js'
-import {setNumberOfAjaxCalls, setIsSaved} from './uiActions'
+import {setNumberOfAjaxCalls, setDataSaved} from './uiActions'
 import {fetchTasks, sendTasks} from '../services/tasks'
 
 const loadTasksSuccess = (tasks) => ({
@@ -28,7 +28,7 @@ export const loadTasks = () => (dispatch) => {
 
     fetchTasks()
     .then((data) => {
-      dispatch(loadTasksSuccess((data && data.tasks) || null))
+      dispatch(loadTasksSuccess(data.tasks))
       dispatch(setNumberOfAjaxCalls(-1))
       resolve()
     })
@@ -44,12 +44,12 @@ export const saveTasks = (tasks) => (dispatch) => {
     sendTasks(tasks)
     .then((response) => {
       console.log('saveTasks success:', response)
-      dispatch(setIsSaved(true))
+      dispatch(setDataSaved(true))
       resolve()
     })
     .catch((error) => {
       console.log('saveTasks error:', error)
-      dispatch(setIsSaved(false))
+      dispatch(setDataSaved(false))
       reject(error)
     })
   })

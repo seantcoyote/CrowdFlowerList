@@ -38,12 +38,6 @@ export default function tasksById (state = initialState.tasksById, action) {
       return action.payload
 
     case types.ADD_TASK:
-      // Only allow 1 new task without a title
-      const newTaskAlreadyExists = Object.keys(state).filter((taskId) => state[taskId].title.length < 1)
-      if (newTaskAlreadyExists.length) {
-        return state
-      }
-
       return {
         ...state,
         [action.payload.id]: action.payload

@@ -1,10 +1,10 @@
 import React from 'react'
-import {func, object} from 'prop-types'
+import {func, object, bool} from 'prop-types'
 import FlatButton from 'material-ui/FlatButton'
 import colors from '../../constants/colors'
 import defaultStyles from './styles'
 
-const TaskListHeader = ({addTask, saveTasks, style}) => (
+const TaskListHeader = ({addTask, saveTasks, dataReady, dataSaved, style}) => (
   <div style={{...defaultStyles.taskListHeader, ...style}}>
     <h2 style={defaultStyles.taskListHeaderTitle}>Tasks</h2>
     <div>
@@ -13,6 +13,7 @@ const TaskListHeader = ({addTask, saveTasks, style}) => (
         hoverColor={colors.grayHover}
         onClick={addTask}
         labelStyle={{color: colors.blue}}
+        disabled={!dataReady}
         style={defaultStyles.taskListHeaderButton}
       >Add Task</FlatButton>
       <FlatButton
@@ -20,6 +21,7 @@ const TaskListHeader = ({addTask, saveTasks, style}) => (
         hoverColor={colors.greenHover}
         onClick={saveTasks}
         labelStyle={{color: colors.blue}}
+        disabled={dataSaved || !dataReady}
         style={defaultStyles.taskListHeaderButton}
       >Save</FlatButton>
     </div>
@@ -29,6 +31,8 @@ const TaskListHeader = ({addTask, saveTasks, style}) => (
 TaskListHeader.propTypes = {
   addTask: func.isRequired,
   saveTasks: func.isRequired,
+  dataReady: bool.isRequired,
+  dataSaved: bool.isRequired,
   style: object
 }
 

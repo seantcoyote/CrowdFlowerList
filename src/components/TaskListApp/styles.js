@@ -5,6 +5,7 @@ export default {
     display: 'flex',
     flexFlow: 'column nowrap',
     alignContent: 'flex-start',
+    minHeight: 300,
     fontFamily: '"Lato", sans-serif',
     backgroundColor: colors.pageBackground
   },
@@ -13,6 +14,7 @@ export default {
     backgroundColor: colors.darkBlue
   },
   taskListPane: {
-    margin: '0 auto 20px'
+    margin: '0 auto 20px',
+    minWidth: 610
   }
 }

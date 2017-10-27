@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {object, array, bool, string} from 'prop-types'
+import {object, array, bool} from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import * as uiActions from '../../actions/uiActions'
@@ -7,6 +7,7 @@ import * as taskActions from '../../actions/taskActions'
 import uuidV4 from 'uuid/v4'
 import TaskListHeader from '../TaskListHeader'
 import TaskList from '../TaskList'
+import Spinner from '../Spinner'
 import Message from '../Message'
 import {loadErrorMessage, saveErrorMessage, saveSuccessMessage} from '../../constants'
 import defaultStyles from './styles'
@@ -14,41 +15,39 @@ import defaultStyles from './styles'
 class TaskListApp extends Component {
   componentWillMount () {
     this.props.taskActions.loadTasks().then(() => {
-      this.props.uiActions.setErrorMessage('')
-      this.props.uiActions.setIsDataReady(true)
+      this.props.uiActions.setLoadError(false)
+      this.props.uiActions.setDataReady(true)
+      this.props.uiActions.setDataSaved(true)
     }).catch((err) => {
-      this.props.uiActions.setErrorMessage(loadErrorMessage)
+      this.props.uiActions.setLoadError(true)
+      this.props.uiActions.setDataReady(false)
+      this.props.uiActions.setDataSaved(false)
     })
   }
 
   componentDidUpdate () {
-    const {tasks, errorMessage} = this.props
-    // Add new task if none exist
-    if (!errorMessage && Object.keys(tasks).length < 1) {
+    // Add new task if none exists
+    if (!this.props.loadError && this.props.taskIds.length < 1) {
       this.addTask()
     }
     this.giveNewTaskFocus()
   }
 
-  // const taskIdsByDate = getTaskIdsByDate()
-
   giveNewTaskFocus () {
-    const {tasks} = this.props
-    const newestTaskId = Object.keys(tasks).reduce((accId, taskId) => {
-      const currentTask = tasks[taskId]
-      const newestTask = tasks[accId] || ''
-      return accId && newestTask.dateCreated > currentTask.dateCreated ? accId : taskId
-    }, '')
+    const {tasks, taskIds} = this.props
+    const newestTaskId = taskIds[0]
+
     if (tasks[newestTaskId] && tasks[newestTaskId].title.length < 1) {
-      document.getElementById(newestTaskId).focus()
+      const el = document.getElementById(newestTaskId)
+      if (el) {el.focus()}
     }
   }
 
   cleanTasks = () => {
     // Delete tasks w/no title or only whitespace in title
-    const {tasks} = this.props
-    Object.keys(tasks).forEach((taskId) => {
-      if (tasks[taskId].title.length === 0 ||
+    const {tasks, taskIds} = this.props
+    taskIds.forEach((taskId) => {
+      if ((tasks[taskId] && tasks[taskId].title.length === 0) ||
         (tasks[taskId].title.length > 0 && tasks[taskId].title.trim().length < 1)
       ) {
         this.props.taskActions.deleteTask(taskId)
@@ -64,15 +63,18 @@ class TaskListApp extends Component {
       title: ''
     }
     this.props.taskActions.addTask(newTask)
+    this.props.uiActions.setDataSaved(false)
     this.giveNewTaskFocus()
   }
 
   updateTask = (e) => {
     this.props.taskActions.updateTask(e.target.id, e.target.value)
+    this.props.uiActions.setDataSaved(false)
   }
 
   deleteTask = (e) => {
     this.props.taskActions.deleteTask(e.target.id)
+    this.props.uiActions.setDataSaved(false)
 }
 
   saveTasks = () => {
@@ -83,11 +85,11 @@ class TaskListApp extends Component {
     }).then(() => {
       // TODO: display alert
       console.log('saveTasks:', saveSuccessMessage)
-      this.props.uiActions.setErrorMessage('')
+      this.props.uiActions.setDataSaved(true)
     }).catch((err) => {
       // TODO: display alert
       console.log('saveTasks:', saveErrorMessage)
-      // this.props.uiActions.setErrorMessage(saveErrorMessage)
+      this.props.uiActions.setDataSaved(false)
     })
   }
 
@@ -95,42 +97,54 @@ class TaskListApp extends Component {
     return (
       <div style={{...defaultStyles.base, ...this.props.style}}>
         <header style={defaultStyles.pageHeader}>&nbsp;</header>
+
         <div style={defaultStyles.taskListPane}>
           <TaskListHeader
             addTask={this.addTask}
             saveTasks={this.saveTasks}
+            dataReady={this.props.dataReady}
+            dataSaved={this.props.dataSaved}
           />
 
-          {this.props.errorMessage &&
-            <Message style={{color: 'red'}}>{this.props.errorMessage}</Message>
+          {this.props.loadError &&
+            <Message style={{color: 'red'}}>{loadErrorMessage}</Message>
           }
 
-          <TaskList
-            tasks={this.props.tasks}
-            taskIds={this.props.taskIds}
-            updateTask={this.updateTask}
-            deleteTask={this.deleteTask}
-            cleanTasks={this.cleanTasks}
-          />
+          {this.props.dataReady &&
+            <TaskList
+              tasks={this.props.tasks}
+              taskIds={this.props.taskIds}
+              updateTask={this.updateTask}
+              deleteTask={this.deleteTask}
+              cleanTasks={this.cleanTasks}
+            />
+          }
+
+          {!this.props.dataReady && !this.props.loadError &&
+            <Spinner />
+          }
         </div>
+
       </div>
     )
   }
 }
 
 TaskListApp.propTypes = {
-  isDataReady: bool.isRequired,
-  errorMessage: string,
+  dataReady: bool.isRequired,
+  dataSaved: bool.isRequired,
+  loadError: bool.isRequired,
   tasks: object.isRequired,
-  taskIds: array,
+  taskIds: array.isRequired,
   taskActions: object.isRequired,
   uiActions: object.isRequired,
   style: object
 }
 
 const mapStateToProps = (state) => ({
-  isDataReady: state.ui.isDataReady,
-  errorMessage: state.ui.errorMessage,
+  dataReady: state.ui.dataReady,
+  dataSaved: state.ui.dataSaved,
+  loadError: state.ui.loadError,
   tasks: state.tasksById,
   taskIds: state.taskIds
 })
