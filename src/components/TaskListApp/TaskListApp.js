@@ -39,17 +39,6 @@ class TaskListApp extends Component {
     if (!this.props.loadError && this.props.taskIds.length < 1) {
       this.addTask()
     }
-    this.giveNewTaskFocus()
-  }
-
-  giveNewTaskFocus () {
-    const {tasks, taskIds} = this.props
-    const newestTaskId = taskIds[0]
-
-    if (tasks[newestTaskId] && tasks[newestTaskId].title.length < 1) {
-      const el = document.getElementById(newestTaskId)
-      if (el) {el.focus()}
-    }
   }
 
   cleanTasks = () => {
@@ -73,7 +62,6 @@ class TaskListApp extends Component {
     }
     this.props.taskActions.addTask(newTask)
     this.props.uiActions.setDataSaved(false)
-    this.giveNewTaskFocus()
   }
 
   updateTask = (e) => {
@@ -107,7 +95,7 @@ class TaskListApp extends Component {
     this.setState({isAlertOpen: false})
   }
 
-  render() {
+  render () {
     return (
       <div style={{...defaultStyles.base, ...this.props.style}}>
         <header style={defaultStyles.pageHeader}>&nbsp;</header>
